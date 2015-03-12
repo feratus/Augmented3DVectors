@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">Augmented Vectors</string>
+
+    <string name="start_button">Start</string>
+    
+    <string name="menu_flash_error_on">Unable to turn on flash</string>
+    <string name="menu_flash_error_off">Unable to turn off flash</string>
+    
+    <string name="menu_contAutofocus_error_on">Unable to activate Continuous Auto-Focus</string>
+    <string name="menu_contAutofocus_error_off">Unable to deactivate Continuous Auto-Focus</string>
+    
+</resources>
