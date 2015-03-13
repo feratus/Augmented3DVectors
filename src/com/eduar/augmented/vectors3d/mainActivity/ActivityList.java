@@ -133,7 +133,7 @@ public class ActivityList extends FragmentActivity
             intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
             break;
         case 1: // Sistema de Coordenadas
-            intent.putExtra("ACTIVITY_TO_LAUNCH", "app.FrameMarkers.FrameMarkers");
+            intent.putExtra("ACTIVITY_TO_LAUNCH", "mainActivity.MainApp");
             intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
             break;
         case 2: // Vector en 3D
