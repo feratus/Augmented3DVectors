@@ -35,8 +35,7 @@ public class MainApp extends Activity implements View.OnClickListener {
 	
 	public void startNextActivity() {
 		
-		String packageName = getPackageName(); 
-		//String className = packageName + ".app.FrameMarkers.FrameMarkers";
+		String packageName = getPackageName(); 		
 		String className = packageName + ".mainActivity.ActivityList";
 		 
 		Intent i = new Intent();

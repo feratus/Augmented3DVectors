@@ -24,7 +24,7 @@
         
         <!-- ACTIVITIES -->
         
-        <!-- Main Activity -->
+        <!-- *** Main Activity *** -->
         <activity 
             android:name="com.eduar.augmented.vectors3d.mainActivity.MainApp"
             android:screenOrientation="portrait"
@@ -53,6 +53,20 @@
             >            
         </activity>
         
+        <!-- ************************************************* -->
+        <!-- AR ACTIVITIES -->
+        
+        <!-- * Grid Activity * -->
+        <activity
+            android:name=".app.GridSpace.GridActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
+            android:theme="@style/SampleAppsTheme"
+            android:launchMode="singleTask"            
+            >            
+        </activity>
+        
+        <!-- ************************************************* -->
+        
         <!-- Frame Markers Activity -->
         <activity
             android:name=".app.FrameMarkers.FrameMarkers"
@@ -61,8 +75,7 @@
             android:launchMode="singleTask"            
             >            
         </activity>
-        
-        
+               
         <!--  -->
         
     </application>

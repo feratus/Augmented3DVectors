@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView 
+    <TextView
         android:id="@+id/description_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textStyle="bold"
-        />
+        android:textSize="@dimen/title_text_view_size"
+        android:textStyle="bold" />
     
     <Button 
         android:id="@+id/button_start_activity"
@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Start"
+        android:text="@string/start_button"
         />
     
     <WebView 

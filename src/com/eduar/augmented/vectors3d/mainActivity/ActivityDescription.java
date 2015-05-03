@@ -7,12 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-//import android.view.View;
-//import android.view.View.OnClickListener;
-//import android.webkit.WebView;
-//import android.widget.Button;
-//import android.widget.TextView;
-
 
 public class ActivityDescription extends FragmentActivity 
 							  implements ActivityDescriptionFragment.OnButtonPressedListener 
@@ -49,9 +43,10 @@ public class ActivityDescription extends FragmentActivity
 		setContentView(R.layout.description_act_screen);
 		
 		String webText = getIntent().getExtras().getString("ABOUT_TEXT");
+		String titleText = getIntent().getExtras().getString("ABOUT_TEXT_TITLE");
 		mClassToLaunchPackage = getPackageName();
-		mClassToLaunch = 
-				getPackageName() + "." + getIntent().getExtras().getString("ACTIVITY_TO_LAUNCH");
+		mClassToLaunch = getPackageName() + 
+						"." + getIntent().getExtras().getString("ACTIVITY_TO_LAUNCH");
 		
 		// Place a DescriptionFragment as the content pane
 		//descripFragment = new DescriptionFragment();
@@ -60,7 +55,7 @@ public class ActivityDescription extends FragmentActivity
 				getSupportFragmentManager().findFragmentById(R.id.description_fragment);
 		
 		// set the arguments gathered from the intent		
-		mDescriptionFragment.setArguments(webText);
+		mDescriptionFragment.setArguments(titleText, webText);
 		//
 				
 		// Display the correct description on the fragment
@@ -78,10 +73,15 @@ public class ActivityDescription extends FragmentActivity
 		Log.d("DescriptionActivity", mClassToLaunchPackage);
 		Log.d("DescriptionActivity", mClassToLaunch);
 		
-		Intent i = new Intent();		
-		i.setClassName(mClassToLaunchPackage, mClassToLaunch);
-		startActivity(i);
+		if(mClassToLaunch.contains("RETURN")){
+			this.finish();
+			//super.onBackPressed();			
+		} else {
 		
+			Intent i = new Intent();		
+			i.setClassName(mClassToLaunchPackage, mClassToLaunch);
+			startActivity(i);
+		}
 	}
 	// -----------------------------------------------------------------------------------
 	

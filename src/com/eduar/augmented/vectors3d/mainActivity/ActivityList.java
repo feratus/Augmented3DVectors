@@ -1,13 +1,23 @@
 package com.eduar.augmented.vectors3d.mainActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import com.eduar.augmented.vectors3d.R;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class ActivityList extends FragmentActivity 
@@ -24,6 +34,9 @@ public class ActivityList extends FragmentActivity
 	
 	// the index currently being displayed
 	int mListIndex, mCatIndex;
+	
+	// Button
+	private Button mInfoButton; 
 	
 	// List of Activities::
 	private String mActivitiesList[] = { 
@@ -47,8 +60,15 @@ public class ActivityList extends FragmentActivity
 		mListFragment = (ActivityListFragment) 
 				getSupportFragmentManager().findFragmentById(R.id.activity_list_fragment);
 		
-		// Register this activity as the listener for the IndexFragment envents.
+		// Register this activity as the listener for the IndexFragment events.
 		mListFragment.setOnItemSelectedListener(this);
+		
+		
+		// Button to launch the 'About' Dialog Box
+		mInfoButton = (Button) findViewById(R.id.info_button);
+		if (mInfoButton != null) {
+            mInfoButton.setOnClickListener(this);
+        }
 	}
 	
 	// -----------------------------------------------------------------------------------
@@ -91,7 +111,7 @@ public class ActivityList extends FragmentActivity
 	/**
 	 * Called when an Activity is selected
 	 * 
-	 * This is called by the ActivitiesFragment (via its listener interface) to notify
+	 * This is called by the ActivityListFragment (via its listener interface) to notify
 	 * that an activity was selected in the Action Bar. The way this reacts depends on 
 	 * whether the app is in single o dual-pane mode. In the first, a new activity is 
 	 * launched to display the selected content; in dual-pane the content is displayed
@@ -119,8 +139,7 @@ public class ActivityList extends FragmentActivity
 	private void launchActivity (int indexPosition) {
 		
 		Intent intent = new Intent(this, ActivityDescription.class);
-        //intent.putExtra("ABOUT_TEXT_TITLE", activityTitle);        
-		
+        
 		//String packageName = getPackageName(); 
 		//String className = packageName + ".app.FrameMarkers.FrameMarkers";
 		//Intent intent = new Intent();
@@ -129,23 +148,28 @@ public class ActivityList extends FragmentActivity
 		
         switch (indexPosition) {
         case 0: // Introducción
-            intent.putExtra("ACTIVITY_TO_LAUNCH", "app.FrameMarkers.FrameMarkers");
-            intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
+            intent.putExtra("ACTIVITY_TO_LAUNCH", "RETURN");
+            intent.putExtra("ABOUT_TEXT_TITLE", "Introdución");  
+            intent.putExtra("ABOUT_TEXT", "HTML_about/1.Intro_about.html");
             break;
         case 1: // Sistema de Coordenadas
-            intent.putExtra("ACTIVITY_TO_LAUNCH", "mainActivity.MainApp");
-            intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
+            intent.putExtra("ACTIVITY_TO_LAUNCH", "app.GridSpace.GridActivity");
+            intent.putExtra("ABOUT_TEXT_TITLE", "Sistema de Coordenadas");
+            intent.putExtra("ABOUT_TEXT", "HTML_about/2.Grid_about.html");
             break;
         case 2: // Vector en 3D
             intent.putExtra("ACTIVITY_TO_LAUNCH", "app.FrameMarkers.FrameMarkers");
-            intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
+            intent.putExtra("ABOUT_TEXT_TITLE", "Vector en 3D");
+            intent.putExtra("ABOUT_TEXT", "HTML_about/3.Vector_about.html");
             break;
         case 3: // Adición y Resta con Vectores en 3D
             intent.putExtra("ACTIVITY_TO_LAUNCH", "app.FrameMarkers.FrameMarkers");
-            intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
+            intent.putExtra("ABOUT_TEXT_TITLE", "Adición y Resta de Vectores en 3D");
+            intent.putExtra("ABOUT_TEXT", "HTML_about/4.AddSub_about.html");
             break;
         case 4: // Producto cruz y el plano
             intent.putExtra("ACTIVITY_TO_LAUNCH", "app.FrameMarkers.FrameMarkers");
+            intent.putExtra("ABOUT_TEXT_TITLE", "Producto Cruz");
             intent.putExtra("ABOUT_TEXT", "FrameMarkers/FM_about.html");
             break;
         case 5: // Ejercicio 1
@@ -160,11 +184,42 @@ public class ActivityList extends FragmentActivity
         startActivity(intent);
 		//finish();
 	}
-
+	
+	// -----------------------------------------------------------------------------------
+	/**
+	 * Called when the button get pressed
+	 */
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
+		// TO DO Auto-generated method stub
+		// custom dialog
+		final Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.dialog_info);
+		dialog.setTitle("Info.");
+ 
+		// set the custom dialog components - text, image and button
+		TextView text = (TextView) dialog.findViewById(R.id.text_info);
+		text.setText("Android custom dialog example!");
 		
+		WebView webText = (WebView) dialog.findViewById(R.id.html_dialog_text);
+		String readText = "";
+		if (webText != null) {
+			try {
+				InputStream is = getAssets().open("HTML_about/0.Info_about.html");
+				BufferedReader reader = new BufferedReader( new InputStreamReader(is) );
+				
+				String line;
+				while ( (line = reader.readLine()) != null ) {
+					readText += line;
+				}
+				
+			} catch (IOException e) {
+				Log.e("DialogBox", "HTML loading failed");
+			}
+			
+			webText.loadData(readText, "text/html", "UTF-8");
+		}
+		dialog.show();
 	}
 	
 	

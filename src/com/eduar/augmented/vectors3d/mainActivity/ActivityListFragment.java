@@ -13,9 +13,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
-public class ActivityListFragment extends ListFragment
-							//Interface from android.widget.AdapterView.OnItemClickListener 
-							   implements OnItemClickListener 
+public class ActivityListFragment extends ListFragment							 
+							   implements OnItemClickListener //Interface from android.widget.AdapterView.OnItemClickListener 
 							   {
 
 	// ********* ------------------------------------------------------------------------

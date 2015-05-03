@@ -3,7 +3,10 @@
     <string name="app_name">Augmented Vectors</string>
 
     <string name="start_button">Start</string>
-    
+    <string name="info_button">Info</string>
+    <string name="settings_button">Ajustes</string>
+     
+        
     <string name="menu_flash_error_on">Unable to turn on flash</string>
     <string name="menu_flash_error_off">Unable to turn off flash</string>
     

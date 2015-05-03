@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import com.eduar.augmented.vectors3d.R;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -38,14 +39,15 @@ public class ActivityDescriptionFragment extends Fragment
 	// ********** ------------------------------------------------------------------------
 	
 	// WebView to display the description content
-	private WebView mAboutText;
+	private WebView mAboutWebView;
 	// A TextView to show the title of the description
-	private TextView mTextTitle;
+	private TextView mTitleTextView;
 	// Button to launch the activity related to the description
 	private Button mStartButton;
 	
 	// Strings to get the package and the class to launch
 	private String mWebText = "";
+	private String mTitleText = ""; 
 	
 	private View mView;
 	
@@ -68,8 +70,9 @@ public class ActivityDescriptionFragment extends Fragment
 		
 		// Option 2: Use a layout as the UI for the fragment, and get the references
 		mView = inflater.inflate(R.layout.description_frag_screen, container, false);
-		mTextTitle = (TextView) mView.findViewById(R.id.description_title);
-		mAboutText = (WebView) mView.findViewById(R.id.html_text);
+		mTitleTextView = (TextView) mView.findViewById(R.id.description_title);
+		mTitleTextView.setTypeface(null, Typeface.BOLD);
+		mAboutWebView = (WebView) mView.findViewById(R.id.html_text);
 		mStartButton = (Button) mView.findViewById(R.id.button_start_activity);
 		mStartButton.setOnClickListener(this);
 		loadWebView();
@@ -88,7 +91,7 @@ public class ActivityDescriptionFragment extends Fragment
 		//String webText = "HTML/html_about.html";
 		String aboutText = "";
 				
-		if (mAboutText != null) {
+		if (mAboutWebView != null) {
 			try {
 				InputStream is = getActivity().getAssets().open(mWebText);
 				BufferedReader reader = new BufferedReader( new InputStreamReader(is) );
@@ -104,10 +107,10 @@ public class ActivityDescriptionFragment extends Fragment
 						
 			// The loading of the contents of WebView has to be inside the 'if(webViewObject != null)'
 			// other case, it could lead to a 'NullPointerExcception'
-			mAboutText.loadData(aboutText, "text/html", "UTF-8");
+			mAboutWebView.loadData(aboutText, "text/html", "UTF-8");
 			
-			if (mTextTitle != null) {
-				mTextTitle.setText("A-OK in Description Fragment");
+			if (mTitleTextView != null) {
+				mTitleTextView.setText(mTitleText);
 			} else {
 				Log.e("DescriptionFragment", "mTextFile is NULL");
 			}
@@ -128,16 +131,17 @@ public class ActivityDescriptionFragment extends Fragment
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		mAboutText = null;
-		mTextTitle = null;
+		mAboutWebView = null;
+		mTitleTextView = null;
 	}
 		
 	// -----------------------------------------------------------------------------------
 	/**
 	 * Set the arguments using the extras from the intent
 	 */
-	public void setArguments(String webText) {
-		this.mWebText = webText;		
+	public void setArguments(String titleText, String webText) {
+		this.mTitleText = titleText;
+		this.mWebText = webText;
 	}
 	
 	// -----------------------------------------------------------------------------------
